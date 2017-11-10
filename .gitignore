@@ -61,3 +61,4 @@ typings/
 .idea/workspace.xml
 .idea/tasks.xml
 dist/
+config.json
