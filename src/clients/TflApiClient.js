@@ -17,7 +17,7 @@ export class TflApiClient {
     this._baseUrl = 'https://api.tfl.gov.uk/StopPoint/';
   }
 
-  getBusesForStop(stop: Stop): Promise<Array<Bus>> {
+  getBusesForStop(stop: Stop, numberOfBuses: number = 5): Promise<Array<Bus>> {
     const options = new RequestOptions(
       this._baseUrl + `${stop.id}/arrivals`,
       {
@@ -29,6 +29,10 @@ export class TflApiClient {
       .then(parsed => parsed.map(bus =>
         new Bus(bus.vehicleId, bus.lineName, bus.destinationName, bus.expectedArrival)
       ))
+      .then(buses => buses
+        .sort((a, b) => a.expectedArrival.diff(b.expectedArrival, 'seconds'))
+        .slice(0, numberOfBuses)
+      )
       .catch(err => console.log('Something went wrong!', err));
   }
 
