@@ -1,10 +1,10 @@
 // @flow
 
 import request from 'request-promise-native';
-import { PostcodesClient } from "./PostcodesClient";
 import { Bus } from "../models/Bus";
 import { Stop } from "../models/Stop"
 import { Location } from "../models/Location";
+import { RequestOptions } from "../models/RequestOptions";
 
 export class TflApiClient {
   _applicationId: string;
@@ -18,8 +18,14 @@ export class TflApiClient {
   }
 
   getBusesForStop(stop: Stop): Promise<Array<Bus>> {
-    return request(this._baseUrl + `${stop.id}/arrivals`)
-      .then(body => JSON.parse(body))
+    const options = new RequestOptions(
+      this._baseUrl + `${stop.id}/arrivals`,
+      {
+        app_id: this._applicationId,
+        app_key: this._applicationKey
+      }
+    );
+    return request(options)
       .then(parsed => parsed.map(bus =>
         new Bus(bus.vehicleId, bus.lineName, bus.destinationName, bus.expectedArrival)
       ))
@@ -27,9 +33,18 @@ export class TflApiClient {
   }
 
   getStopsForLocation(location: Location, radius: number, numberOfStops: number = 2): any {
-    const queryString = `?lat=${location.latitude.toString()}&lon=${location.longitude.toString()}&stoptypes=NaptanPublicBusCoachTram&radius=${radius.toString()}`;
-    return request(this._baseUrl + queryString)
-      .then(JSON.parse)
+    const options = new RequestOptions(
+      this._baseUrl,
+      {
+        app_id: this._applicationId,
+        app_key: this._applicationKey,
+        lat: location.latitude.toString(),
+        lon: location.longitude.toString(),
+        stoptypes: 'NaptanPublicBusCoachTram',
+        radius: radius.toString()
+      }
+    );
+    return request(options)
       .then(parsed => parsed.stopPoints
         .sort((a, b) => a.distance - b.distance)
         .slice(0, numberOfStops)
