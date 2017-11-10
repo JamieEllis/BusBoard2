@@ -14,7 +14,8 @@ const app = express();
 app.get('/busBoard', (request, response) =>
   postcodesClient.getLocation(request.query.postcode)
     .then(location => tflApiClient.getStopsForLocation(location, 500))
-    .then(stops => response.send(stops))
+    .then(stops => Promise.all(stops.map(stop => tflApiClient.getBusesForStop(stop))))
+    .then(busData => response.send(busData))
     .catch(console.log)
 );
 
