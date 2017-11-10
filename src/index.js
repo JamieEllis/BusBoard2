@@ -5,10 +5,9 @@ import { PostcodesClient } from "./clients/PostcodesClient";
 
 const config = require('../config.json');
 
-const tflApiClient = new TflApiClient(config.tflCredentials.applicationId, config.tflCredentials.applicationKey);
 const postcodesClient = new PostcodesClient();
+const tflApiClient = new TflApiClient(config.tflCredentials.applicationId, config.tflCredentials.applicationKey);
 
-postcodesClient.getLatitudeAndLongtitude('NW51TL').then(console.log);
-
-tflApiClient.getBusesForStop('490008660N')
-  .then(buses => buses.forEach(bus => bus.display()));
+postcodesClient.getLocation('NW51TL')
+  .then(location => tflApiClient.getStopsForLocation(location, 500))
+  .then(console.log);
