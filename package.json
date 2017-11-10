@@ -1,0 +1,30 @@
+{
+  "name": "busboard2",
+  "version": "1.0.0",
+  "description": "Translocates informative virtual omnibus specifications.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "flow": "flow",
+    "clean": "del-cli dist/**/*",
+    "build": "npm run clean && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json --copy-files",
+    "start": "npm run build && node dist/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamieEllis/BusBoard2.git"
+  },
+  "author": "J-Dizzle and Ben 'Money' Ward",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamieEllis/BusBoard2/issues"
+  },
+  "homepage": "https://github.com/JamieEllis/BusBoard2#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-flow-node": "^1.0.2",
+    "del-cli": "^1.1.0",
+    "flow-bin": "^0.59.0"
+  }
+}
