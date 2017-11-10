@@ -12,13 +12,11 @@ const tflApiClient = new TflApiClient(config.tflCredentials.applicationId, confi
 const app = express();
 
 app.get('/busBoard', (request, response) => {
+
   postcodesClient.getLocation(request.query.postcode)
     .then(location => tflApiClient.getStopsForLocation(location, 500))
-    .then(stops => Promise.all(stops.map(stop =>
-      tflApiClient.getBusesForStop(stop)
-      .then(buses => { return {stop: stop, buses: buses} })
-    )))
-    .then(stuff => response.send(stuff))
+    .then(stops => Promise.all(stops.map(stop => Promise.all([stop, tflApiClient.getBusesForStop(stop)]))))
+    .then(busesAndStops => response.send(busesAndStops.map(stopAndBuses => {return {stop: stopAndBuses[0], buses: stopAndBuses[1]}})));
 
 });
 
