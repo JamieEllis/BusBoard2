@@ -22,10 +22,14 @@ app.get('/busBoard', async (request, response) => {
 
 });
 
-app.get('/', (request, response) => {
+app.get('/postcode/:postcode', async (request, response) => {
 
-  response.render('index');
+  let location = await postcodesClient.getLocation(request.params.postcode);
+  let stops = await tflApiClient.getStopsForLocation(location, 500);
+  let buses = await Promise.all(stops.map(stop => tflApiClient.getBusesForStop(stop)));
+  let data = stops.map((stop, i) => { return {stop: stop, buses: buses[i]}});
 
+  response.render('index', {data: data});
 });
 
 

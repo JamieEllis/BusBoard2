@@ -5,11 +5,8 @@ html
         h1 BusBoard
         div(id="results")
             h2 Results
-            h3 Example stop 1
-            ul
-                li 2 minutes: 123 to Example Street
-                li 3 minutes: 456 to Fantasy Land
-            h3 Example stop 2
-            ul
-                li 1 minute: 123 to Example Street
-                li 4 minutes: 456 to Fantasy Land
+            - for(let i=0; i<data.length; i++)
+                h3= data[i].stop.name
+                - for(let j=0; j<data.length; j++)
+                    ul
+                        li= `${data[i].buses[j].number} to ${data[i].buses[j].destination} ${data[i].buses[j].expectedArrival.fromNow()}`
