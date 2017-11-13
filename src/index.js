@@ -17,11 +17,18 @@ app.use(express.static('static'));
 
 app.get('/postcode/:postcode', async (request, response) => {
 
-  let location = await postcodesClient.getLocation(request.params.postcode);
-  let stops = await tflApiClient.getStopsForLocation(location, 500);
-  let buses = await Promise.all(stops.map(stop => tflApiClient.getBusesForStop(stop)));
-  let data = stops.map((stop, i) => { return {stop: stop, buses: buses[i]}});
-  response.render('index', {data: data});
+  try {
+    let location = await postcodesClient.getLocation(request.params.postcode);
+    let stops = await tflApiClient.getStopsForLocation(location, 500);
+    let buses = await Promise.all(stops.map(stop => tflApiClient.getBusesForStop(stop)));
+    let data = stops.map((stop, i) => {
+      return {stop: stop, buses: buses[i]}
+    });
+    response.render('index', {data: data});
+  }
+  catch (error) {
+    response.render('sadtimes', {errorStatusCode: error.statusCode});
+  }
 
 });
 
