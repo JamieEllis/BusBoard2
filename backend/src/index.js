@@ -17,6 +17,7 @@ app.get('/postcode/:postcode', async (request, response) => {
   let stops = await tflApiClient.getStopsForLocation(location, 500);
   let buses = await Promise.all(stops.map(stop => tflApiClient.getBusesForStop(stop)));
   response.send(stops.map((stop, i) => { return {stop: stop, buses: buses[i]}}));
+
 });
 
 app.listen(3001, () => console.log('BusBoard listening on port 3001!'));
