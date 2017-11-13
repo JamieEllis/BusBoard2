@@ -1,12 +1,20 @@
 html
     head
         title Departure Boards
+        script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+        script(src="/scripts/bus.js")
+
     body
         h1 BusBoard
+
+        form(id="postcode-form" action="javascript:void(0)")
+            input(id="postcode-form-input" type="text")
+            input(type="submit" value="Submit")
+
         div(id="results")
             h2 Results
             - for(let i=0; i<data.length; i++)
                 h3= data[i].stop.name
-                - for(let j=0; j<data.length; j++)
+                - for(let j=0; j<data[i].buses.length; j++)
                     ul
                         li= `${data[i].buses[j].number} to ${data[i].buses[j].destination} ${data[i].buses[j].expectedArrival.fromNow()}`
