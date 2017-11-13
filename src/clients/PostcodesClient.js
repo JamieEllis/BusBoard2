@@ -6,10 +6,9 @@ import { RequestOptions } from "../models/RequestOptions";
 
 export class PostcodesClient {
 
-  getLocation(postcode: string): Promise<Location> {
+  async getLocation(postcode: string): Promise<Location> {
     const options = new RequestOptions(`https://api.postcodes.io/postcodes/${postcode}`);
-    return request(options)
-      .then(parsed => new Location(parsed.result.latitude, parsed.result.longitude))
-      .catch(err => console.log('Something went wrong!', err));
+    let response = await request(options);
+    return new Location(response.result.latitude, response.result.longitude);
   }
 }

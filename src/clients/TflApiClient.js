@@ -17,7 +17,7 @@ export class TflApiClient {
     this._baseUrl = 'https://api.tfl.gov.uk/StopPoint/';
   }
 
-  getBusesForStop(stop: Stop, numberOfBuses: number = 5): Promise<Array<Bus>> {
+  async getBusesForStop(stop: Stop, numberOfBuses: number = 5): Promise<Array<Bus>> {
     const options = new RequestOptions(
       this._baseUrl + `${stop.id}/arrivals`,
       {
@@ -25,18 +25,14 @@ export class TflApiClient {
         app_key: this._applicationKey
       }
     );
-    return request(options)
-      .then(parsed => parsed.map(bus =>
-        new Bus(bus.vehicleId, bus.lineName, bus.destinationName, bus.expectedArrival)
-      ))
-      .then(buses => buses
-        .sort((a, b) => a.expectedArrival.diff(b.expectedArrival, 'seconds'))
-        .slice(0, numberOfBuses)
-      )
-      .catch(err => console.log('Something went wrong!', err));
+    let response = await request(options);
+    let buses = response.map(bus => new Bus(bus.vehicleId, bus.lineName, bus.destinationName, bus.expectedArrival));
+    return buses
+      .sort((a, b) => a.expectedArrival.diff(b.expectedArrival, 'seconds'))
+      .slice(0, numberOfBuses);
   }
 
-  getStopsForLocation(location: Location, radius: number, numberOfStops: number = 2): any {
+  async getStopsForLocation(location: Location, radius: number, numberOfStops: number = 2): any {
     const options = new RequestOptions(
       this._baseUrl,
       {
@@ -48,10 +44,10 @@ export class TflApiClient {
         radius: radius.toString()
       }
     );
-    return request(options)
-      .then(parsed => parsed.stopPoints
-        .sort((a, b) => a.distance - b.distance)
-        .slice(0, numberOfStops)
-        .map(stop => new Stop(stop.naptanId, stop.commonName)));
+    let response = await request(options);
+    return response.stopPoints
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, numberOfStops)
+      .map(stop => new Stop(stop.naptanId, stop.commonName));
   }
 }
