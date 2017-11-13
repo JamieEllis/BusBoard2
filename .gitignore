@@ -58,7 +58,7 @@ typings/
 .env
 
 # Flow stuff
-.idea/workspace.xml
-.idea/tasks.xml
-dist/
-config.json
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+backend/dist/
+backend/config.json
