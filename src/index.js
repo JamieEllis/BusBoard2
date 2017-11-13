@@ -11,6 +11,8 @@ const tflApiClient = new TflApiClient(config.tflCredentials.applicationId, confi
 
 const app = express();
 
+app.set('view engine', 'pug');
+
 app.get('/busBoard', async (request, response) => {
 
   let location = await postcodesClient.getLocation(request.query.postcode);
@@ -19,6 +21,13 @@ app.get('/busBoard', async (request, response) => {
   response.send(stops.map((stop, i) => { return {stop: stop, buses: buses[i]}}));
 
 });
+
+app.get('/', (request, response) => {
+
+  response.render('index');
+
+});
+
 
 app.listen(3000, () => console.log('BusBoard listening on port 3000!'));
 
