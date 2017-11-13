@@ -3,6 +3,7 @@
 import React from 'react';
 import { Bus } from '../models/Bus';
 import { Stop } from '../models/Stop';
+import moment from 'moment';
 
 
 type BusListProps = {
@@ -20,7 +21,7 @@ class BusList extends React.Component<BusListProps, {}> {
     return (
       <div className="BusList">
         <h3>{ this.props.stop.name }</h3>
-        { this.props.buses.map(bus => <p> { `${bus.number} to ${bus.destination} ${bus.expectedArrival.fromNow()}` }</p>)}
+        { this.props.buses.map(bus => <p> { `${bus.number} to ${bus.destination} ${moment(bus.expectedArrival).fromNow()}` }</p>)}
       </div>
     );
   }

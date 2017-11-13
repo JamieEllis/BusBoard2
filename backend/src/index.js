@@ -1,6 +1,7 @@
 // @flow
 
 import express from 'express';
+import cors from 'cors';
 import { TflApiClient } from "./clients/TflApiClient";
 import { PostcodesClient } from "./clients/PostcodesClient";
 
@@ -10,6 +11,8 @@ const postcodesClient = new PostcodesClient();
 const tflApiClient = new TflApiClient(config.tflCredentials.applicationId, config.tflCredentials.applicationKey);
 
 const app = express();
+
+app.use(cors());
 
 app.get('/postcode/:postcode', async (request, response) => {
 
