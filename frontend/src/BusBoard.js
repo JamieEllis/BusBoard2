@@ -43,14 +43,19 @@ class BusBoard extends Component<{}, BusBoardState> {
   async findStopInfo(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     this.setState({status: 'loading'});
-    let response = await fetch(`http://localhost:3001/postcode/${this.state.postcode}`);
-    let data = await response.json();
+
+    let response = await Promise.all([
+      fetch(`http://localhost:3001/postcode/${this.state.postcode}`),
+      new Promise((resolve, reject) => setTimeout(resolve, 1500))
+    ]);
+
+    let data = await response[0].json();
 
     if (data.length === 0 && this.state.postcode) {
-      this.setState({stopInfo: data, status: 'error'})
+      this.setState({ stopInfo: data, status: 'error' })
     }
     else if (data.length === 0) {
-      this.setState({stopInfo: data, status: 'noData'});
+      this.setState({ stopInfo: data, status: 'noData' });
     }
     else {
       this.setState({ stopInfo: data, status: 'data' });
