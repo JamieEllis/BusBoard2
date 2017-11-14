@@ -61,7 +61,7 @@ class BusBoard extends Component<{}, BusBoardState> {
       case 'noData':
         return <img src={softbus} alt="Bus"/>;
       case 'loading':
-        return <div><img src={logo} className="App-loading-spinner" alt="Loading..."/></div>;
+        return <div><img src={logo} className="App-loading-spinner" alt="Loading..."/><img src={logo} className="App-loading-spinner-back"/><img src={logo} className="App-loading-spinner-back-back"/></div>;
       case 'data':
         return this.state.stopInfo.map(info => <BusList stop={info.stop} buses={info.buses} key={info.stop.id}/>);
       case 'error':

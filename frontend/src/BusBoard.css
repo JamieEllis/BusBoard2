@@ -8,9 +8,35 @@
 }
 
 .App-loading-spinner {
+  position: absolute;
+  top: 400px - 50px;
+  left: calc(50% - 50px);
   animation: App-logo-spin infinite 0.5s linear;
-  height: 40px;
+  opacity: 0.4;
+  height: 100px;
+  z-index: 2;
 }
+
+.App-loading-spinner-back {
+  position: absolute;
+  animation: App-logo-spin-backward infinite 1.0s linear;
+  opacity: 0.2;
+  height: 140px;
+  top: 400px - 70px;
+  left: calc(50% - 70px);
+  z-index: 1;
+}
+
+.App-loading-spinner-back-back {
+  position: absolute;
+  animation: App-logo-spin infinite 2.0s linear;
+  opacity: 0.1;
+  height: 200px;
+  top: 400px - 100px;
+  left: calc(50% - 100px);
+  z-index: 0;
+}
+
 .App-header {
   background-color: #222;
   height: 150px;
@@ -30,4 +56,9 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes App-logo-spin-backward {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
 }
