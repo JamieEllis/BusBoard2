@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import BusList from './components/BusList';
 import logo from './android-bus.svg';
 import softbus from './softbus.png';
+import sadbus from './sadbus.png';
 import 'whatwg-fetch';
 import { Bus } from './models/Bus';
 import { Stop } from './models/Stop';
@@ -64,7 +65,7 @@ class BusBoard extends Component<{}, BusBoardState> {
       case 'data':
         return this.state.stopInfo.map(info => <BusList stop={info.stop} buses={info.buses} key={info.stop.id}/>);
       case 'error':
-        return <div><p>Somebody's getting coal for Christmas...</p></div>;
+        return <img src={sadbus} alt="Bus"/>;
       default:
         break;
     }
