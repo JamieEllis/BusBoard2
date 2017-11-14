@@ -78,9 +78,9 @@ class BusBoard extends Component<{}, BusBoardState> {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to BusBoard</h1>
         </header>
-        <div>
-          <input type="text" onChange={this.handleChange.bind(this)} value={this.state.postcode}/>
-          <button onClick={this.findStopInfo.bind(this)}>Search by postcode</button>
+        <div class="nice-input-form">
+          <input class="nice-textbox" type="text" onChange={this.handleChange.bind(this)} value={this.state.postcode}/>
+          <button class="nice-button" onClick={this.findStopInfo.bind(this)}>Search by postcode</button>
         </div>
         { this.renderBusList() }
       </div>

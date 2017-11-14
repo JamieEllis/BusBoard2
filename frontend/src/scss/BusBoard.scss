@@ -1,3 +1,40 @@
+.nice-input-form {
+  font-size: 16px;
+
+  .nice-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: red * 0.9;
+    }
+
+    &:active {
+      background-color: red * 0.75;
+    }
+  }
+
+  .nice-textbox {
+    width: 600px;
+    padding: 9px 19px;
+    margin-right: 20px;
+    border-radius: 4px;
+    border: 1px lightgray solid;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 .App {
   text-align: center;
 }
