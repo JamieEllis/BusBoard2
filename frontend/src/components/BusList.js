@@ -13,15 +13,11 @@ type BusListProps = {
 
 
 class BusList extends React.Component<BusListProps, {}> {
-  constructor(props: BusListProps) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="BusList">
         <h3>{ this.props.stop.name }</h3>
-        { this.props.buses.map(bus => <p> { `${bus.number} to ${bus.destination} ${moment(bus.expectedArrival).fromNow()}` }</p>)}
+        { this.props.buses.map(bus => <p key={bus.busId}> { `${bus.number} to ${bus.destination} ${moment(bus.expectedArrival).fromNow()}` }</p>)}
       </div>
     );
   }
