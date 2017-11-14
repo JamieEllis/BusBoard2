@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import BusList from './components/BusList';
 import logo from './logo.svg';
-import './BusBoard.css';
 import 'whatwg-fetch';
 import { Bus } from './models/Bus';
 import { Stop } from './models/Stop';
