@@ -93,7 +93,7 @@ class BusBoard extends Component<{}, BusBoardState> {
 
   sadGareth(){
     this.setState({konami: true});
-    setTimeout(() => this.setState({konami: false}), 5000);
+    setTimeout(() => this.setState({konami: false}), 3000);
   }
 
   render() {
@@ -101,7 +101,7 @@ class BusBoard extends Component<{}, BusBoardState> {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <div className="App-title">Welcome to BusBoard</div>
+          <div className="App-title">Welcome to <span style={{fontWeight: 'bold'}}>BusBoard</span></div>
         </header>
         <div>
           <form class="nice-input-form" onSubmit={this.findStopInfo.bind(this)}>

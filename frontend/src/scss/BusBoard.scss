@@ -73,8 +73,9 @@
 }
 
 .scrolling-bus {
-  position: absolute;
-  animation: scrolling-bus 5s linear;
+  position: fixed;
+  top: 300px;
+  animation: scrolling-bus 3s linear;
 }
 
 .App-loading-spinner {
@@ -121,6 +122,10 @@
 
 .App-intro {
   font-size: large;
+}
+
+input {
+  font-weight: bold;
 }
 
 @keyframes App-logo-spin {
