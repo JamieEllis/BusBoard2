@@ -11,7 +11,6 @@ type BusListProps = {
   buses: Array<Bus>
 }
 
-
 class BusList extends React.Component<BusListProps, {}> {
   render() {
     return (

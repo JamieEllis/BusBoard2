@@ -4,18 +4,21 @@
   "private": true,
   "dependencies": {
     "@types/react": "^16.0.22",
+    "del-cli": "^1.1.0",
     "moment": "^2.19.2",
+    "node-sass": "^4.6.1",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
     "react-scripts": "1.0.17",
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "del-cli public/css/* && npm run scss && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "flow": "flow"
+    "flow": "flow",
+    "scss": "node-sass src/scss -o public/css"
   },
   "devDependencies": {
     "flow-bin": "^0.59.0"
