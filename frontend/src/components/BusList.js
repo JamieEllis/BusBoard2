@@ -15,8 +15,14 @@ class BusList extends React.Component<BusListProps, {}> {
   render() {
     return (
       <div className="BusList">
-        <h3>{ this.props.stop.name }</h3>
-        { this.props.buses.map(bus => <p key={bus.busId}> { `${bus.number} to ${bus.destination} ${moment(bus.expectedArrival).fromNow()}` }</p>)}
+        <div className="bus-list-title">{ this.props.stop.name }</div>
+        {
+          this.props.buses.map(bus =>
+            <div className="bus-list-info-snippet" key={bus.busId}>
+              { `${bus.number} to ${bus.destination} ${moment(bus.expectedArrival).fromNow()}` }
+            </div>
+          )
+        }
       </div>
     );
   }
