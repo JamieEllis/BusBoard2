@@ -5,9 +5,11 @@ import BusList from './components/BusList';
 import logo from './android-bus.svg';
 import softbus from './softbus.png';
 import sadbus from './sadbus.png';
+import sadgareth from './sadgareth.png';
 import 'whatwg-fetch';
 import { Bus } from './models/Bus';
 import { Stop } from './models/Stop';
+import Konami from 'react-konami';
 
 
 const busBoardStatus =  {
@@ -23,13 +25,14 @@ type BusBoardState = {
   postcode: string,
   stopInfo: Array<{stop: Stop, buses: Array<Bus>}>,
   time: number,
-  status: AppStatus
+  status: AppStatus,
+  konami: boolean
 }
 
 class BusBoard extends Component<{}, BusBoardState> {
   constructor(props: {}) {
     super(props);
-    this.state = { postcode: '', stopInfo: [], time: 0, status: 'noData' };
+    this.state = { postcode: '', stopInfo: [], time: 0, status: 'noData', konami: false };
   }
 
   componentDidMount() {
@@ -62,12 +65,23 @@ class BusBoard extends Component<{}, BusBoardState> {
     }
   }
 
+  renderLoadingSpinner() {
+    return (
+      <div>
+        <img src={logo} className="App-loading-spinner" alt="Loading..."/>
+        <img src={logo} className="App-loading-spinner-back"/>
+        <img src={logo} className="App-loading-spinner-back-back"/>
+      </div>
+    );
+  }
+
+
   renderBusList() {
     switch(this.state.status) {
       case 'noData':
         return <img src={softbus} alt="Bus"/>;
       case 'loading':
-        return <div><img src={logo} className="App-loading-spinner" alt="Loading..."/><img src={logo} className="App-loading-spinner-back"/><img src={logo} className="App-loading-spinner-back-back"/></div>;
+        return this.renderLoadingSpinner();
       case 'data':
         return this.state.stopInfo.map(info => <BusList stop={info.stop} buses={info.buses} key={info.stop.id}/>);
       case 'error':
@@ -75,6 +89,11 @@ class BusBoard extends Component<{}, BusBoardState> {
       default:
         break;
     }
+  }
+
+  sadGareth(){
+    this.setState({konami: true});
+    setTimeout(() => this.setState({konami: false}), 5000);
   }
 
   render() {
@@ -91,6 +110,9 @@ class BusBoard extends Component<{}, BusBoardState> {
           </form>
         </div>
         { this.renderBusList() }
+        <Konami easterEgg={this.sadGareth.bind(this)}/>
+
+        <img src={sadgareth} style={!this.state.konami ? {display: 'none'} : {} } className="scrolling-bus" />
       </div>
     );
   }

@@ -7,6 +7,11 @@
   height: 80px;
 }
 
+.scrolling-bus {
+  position: absolute;
+  animation: scrolling-bus 5s linear;
+}
+
 .App-loading-spinner {
   position: absolute;
   top: 400px - 50px;
@@ -61,4 +66,9 @@
 @keyframes App-logo-spin-backward {
   from { transform: rotate(0deg); }
   to { transform: rotate(-360deg); }
+}
+
+@keyframes scrolling-bus {
+  from { right: -5%; transform: rotate(0deg);}
+  to {right: 105%; transform: rotate(1080deg);}
 }
