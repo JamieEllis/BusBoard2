@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin:400,600');
+
 .nice-input-form {
-  font-size: 16px;
+  margin-bottom: 32px;
 
   .nice-button {
     background-color: red;
@@ -8,6 +10,8 @@
     padding: 10px 20px;
     border-radius: 4px;
     font-weight: bold;
+    font-family: 'Cabin', sans-serif;
+    font-size: 16px;
 
     &:focus {
       outline: none;
@@ -23,16 +27,40 @@
   }
 
   .nice-textbox {
-    width: 600px;
+    width: 260px;
     padding: 9px 19px;
     margin-right: 20px;
     border-radius: 4px;
     border: 1px lightgray solid;
+    font-family: 'Cabin', sans-serif;
+    font-size: 16px;
+    text-align: center;
 
     &:focus {
       outline: none;
     }
   }
+}
+
+.BusList {
+  animation: fade-in 1 0.35s linear;
+
+  .bus-list-info-snippet {
+    font-size: 16px;
+  }
+
+  .bus-list-info-snippet + .bus-list-info-snippet {
+    margin-top: 4px;
+  }
+
+  .bus-list-title {
+    font-size: 28px;
+    padding-bottom: 4px;
+  }
+}
+
+.BusList + .BusList {
+  margin-top: 32px;
 }
 
 .App {
@@ -76,14 +104,14 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 140px;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 40px;
 }
 
 .App-intro {
@@ -98,4 +126,9 @@
 @keyframes App-logo-spin-backward {
   from { transform: rotate(0deg); }
   to { transform: rotate(-360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1;}
 }

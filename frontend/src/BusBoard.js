@@ -40,7 +40,8 @@ class BusBoard extends Component<{}, BusBoardState> {
     this.setState({ postcode: event.currentTarget.value });
   }
 
-  async findStopInfo() {
+  async findStopInfo(event: SyntheticEvent<HTMLFormElement>) {
+    event.preventDefault();
     this.setState({status: 'loading'});
     let response = await fetch(`http://localhost:3001/postcode/${this.state.postcode}`);
     let data = await response.json();
@@ -76,11 +77,13 @@ class BusBoard extends Component<{}, BusBoardState> {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to BusBoard</h1>
+          <div className="App-title">Welcome to BusBoard</div>
         </header>
-        <div class="nice-input-form">
-          <input class="nice-textbox" type="text" onChange={this.handleChange.bind(this)} value={this.state.postcode}/>
-          <button class="nice-button" onClick={this.findStopInfo.bind(this)}>Search by postcode</button>
+        <div>
+          <form class="nice-input-form" onSubmit={this.findStopInfo.bind(this)}>
+            <input class="nice-textbox" type="text" onChange={this.handleChange.bind(this)} value={this.state.postcode}/>
+            <button class="nice-button" type="submit">Search by postcode</button>
+          </form>
         </div>
         { this.renderBusList() }
       </div>
