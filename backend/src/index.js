@@ -19,7 +19,7 @@ app.get('/postcode/:postcode', generateResponse);
 
 async function generateResponse(request, response) {
   try {
-    let location = await postcodesClient.getLocation(request.params.postcode);
+    let location = await postcodesClient.getLocation(request.params.postcode.replace(/ /g,'').toUpperCase());
     let stops = await tflApiClient.getStopsForLocation(location, 500);
     let buses = await Promise.all(stops.map(stop => tflApiClient.getBusesForStop(stop)));
     response.send(stops.map((stop, i) => { return {stop: stop, buses: buses[i]}}));
