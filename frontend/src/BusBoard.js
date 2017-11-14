@@ -40,7 +40,8 @@ class BusBoard extends Component<{}, BusBoardState> {
     this.setState({ postcode: event.currentTarget.value });
   }
 
-  async findStopInfo() {
+  async findStopInfo(event: SyntheticEvent<HTMLFormElement>) {
+    event.preventDefault();
     this.setState({status: 'loading'});
     let response = await fetch(`http://localhost:3001/postcode/${this.state.postcode}`);
     let data = await response.json();
@@ -79,8 +80,10 @@ class BusBoard extends Component<{}, BusBoardState> {
           <h1 className="App-title">Welcome to BusBoard</h1>
         </header>
         <div>
-          <input type="text" onChange={this.handleChange.bind(this)} value={this.state.postcode}/>
-          <button onClick={this.findStopInfo.bind(this)}>Search by postcode</button>
+          <form onSubmit={this.findStopInfo.bind(this)}>
+            <input type="text" onChange={this.handleChange.bind(this)} value={this.state.postcode}/>
+            <button type="submit">Search by postcode</button>
+          </form>
         </div>
         { this.renderBusList() }
       </div>
